@@ -21,12 +21,44 @@
 //   precos.push(precoCentavos);
 //   quantidades.push(quantidades);
 // }
+import { Cardapio } from "./cardapio";
 import { Comanda, ItemComanda } from "./comanda";
+const cardapio = new Cardapio("dados/cardapio.json");
+// console.log(cardapio.itens);
+// console.log(cardapio.recusados);
 const mesa7 = new Comanda(7);
+const pedidos = ["X-burguer", "refrigente lata", "batata frita"];
+
 const burguer = new ItemComanda("X-burguer", 19.5, 1);
+for (let i = 0; i < pedidos.length; i++) {
+  const item = cardapio.buscar(pedidos[i]);
+  if (item === undefined) {
+    console.log("Item não encontrado: " + pedidos[i]);
+  } else {
+    const itemComanda = new ItemComanda(
+      item.nome,
+      item.preco_centavos / 100,
+      1,
+    );
+    mesa7.adicionar(itemComanda);
+  }
+}
 
 mesa7.adicionar(burguer);
 
-console.log(burguer.subTotal);
-console.log(burguer.nome);
+// console.log(burguer.subTotal);
+// console.log(burguer.nome);
 console.log(mesa7.fechar());
+
+const mesa3 = new Comanda(3);
+console.log(mesa3);
+mesa3.adicionar;
+try {
+  mesa7.adicionar(new ItemComanda("suco de manga", 850, -5));
+} catch (erro) {
+  console.log("Não entrou." + erro);
+}
+
+const suco = new ItemComanda("suco de caju", 750, 2);
+
+// console.log("chegou aqui?....");
